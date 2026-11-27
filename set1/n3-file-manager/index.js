@@ -22,7 +22,7 @@ function getPath(name) {
 function createFile(name) {
   // "wx" means: write, but fail if the file already exists
   fs.writeFileSync(getPath(name), content, { flag: "wx" });
-  console.log("Created ${name}");
+  console.log('Created ${name}');
 }
 
 function readFile(name) {
@@ -32,13 +32,13 @@ function readFile(name) {
 function updateFile(name) {
   // check first, because appendFileSync would create a missing file
   fs.accessSync(getPath(name));
-  fs.appendFileSync(getPath(name), `\n${content}`);
-  console.log("Updated ${name}");
+  fs.appendFileSync('getPath(name), \n${content}');
+  console.log('Updated ${name}');
 }
 
 function deleteFile(name) {
   fs.unlinkSync(getPath(name));
-  console.log("Deleted ${name}");
+  console.log('Deleted ${name}');
 }
 
 function listFiles() {
@@ -49,36 +49,36 @@ function listFiles() {
   for (const name of names) {
     const fullPath = path.join(folder, name);
     console.log("------------------------");
-    console.log("Full path: ${fullPath}");
-    console.log("File name: ${path.basename(fullPath)}");
-    console.log("Extension: ${path.extname(fullPath)}");
+    console.log('Full path: ${fullPath}');
+    console.log('File name: ${path.basename(fullPath)}');
+    console.log('Extension: ${path.extname(fullPath)}');
     console.log('Contents : ${fs.readFileSync(fullPath, "utf8")}');
   }
 }
 
 function main() {
-  console.log("File Manager by Danica A. Cabuay");
+  console.log('File Manager by Danica A. Cabuay');
   const actions = { create: createFile, read: readFile, update: updateFile, delete: deleteFile };
 
   try {
     if (command === "list") {
       listFiles();
     } else if (!Object.hasOwn(actions, command)) {
-      console.log("Commands: create, read, update, delete, list");
+      console.log('Commands: create, read, update, delete, list');
     } else if (!fileName) {
-      console.log("Error: please give a file name.");
+      console.log('Error: please give a file name.');
     } else if ((command === "create" || command === "update") && !content) {
-      console.log("Error: please give the content.");
+      console.log('Error: please give the content.');
     } else {
       actions[command](fileName);
     }
   } catch (error) {
     if (error.code === "ENOENT") {
-      console.log("Error: ${fileName} does not exist.");
+      console.log('Error: ${fileName} does not exist.');
     } else if (error.code === "EEXIST") {
-      console.log("Error: ${fileName} already exists.");
+      console.log('Error: ${fileName} already exists.');
     } else {
-      console.log("Error: ${error.message}");
+      console.log('Error: ${error.message}');
     }
   }
 }
